@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programming Level 4 | Python Functions, len() & strip()</title>
+<style>
+:root{--navy:#1B2A41;--blue:#005596;--gold:#FDB515;--ink:#1d2530;--muted:#5b6675;--bg:#f6f8fb;--line:#d5dde6;--green:#1E8E3E;--greenbg:#E6F4EA;--red:#C3092B;--redbg:#FDECEE;--purple:#6B3FC9;--mono:Consolas,"Cascadia Mono",monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",Arial,sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--navy);color:white;padding:12px 4%;display:flex;gap:18px;align-items:center;flex-wrap:wrap;box-shadow:0 3px 14px #0002}
+.brand{font-weight:800;white-space:nowrap}.brand span{color:var(--gold)}nav{display:flex;gap:7px;flex:1;flex-wrap:wrap}nav a{color:#dce8f5;text-decoration:none;border:1px solid #52647d;border-radius:20px;padding:4px 11px;font-size:.82rem}nav a:hover,nav a.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+#progress{height:5px;background:#3d5373;position:sticky;top:58px;z-index:9}#bar{height:100%;width:0;background:var(--gold);transition:width .4s}
+main{max-width:1120px;margin:auto;padding:24px 18px 90px}.hero{background:linear-gradient(125deg,var(--navy),#075b91);color:white;border-radius:18px;padding:34px 30px;position:relative;overflow:hidden;animation:rise .7s ease both}.hero:after{content:"def()";position:absolute;right:4%;top:8%;font:800 5rem var(--mono);color:#ffffff12;transform:rotate(-12deg)}.hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.12;margin:10px 0}.hero p{max-width:740px;color:#e0ebf6}.tag{display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;border-radius:30px;padding:4px 12px;font-size:.8rem}
+h2{color:var(--blue);margin:0 0 10px;font-size:1.55rem}h3{margin:14px 0 6px}.section{margin-top:24px;animation:rise .6s ease both}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 4px 14px #1b2a4108}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.note{background:#fff5d6;border-left:6px solid var(--gold);border-radius:9px;padding:12px 15px;margin:12px 0}.tip{background:#eef5fa;border-left:6px solid var(--blue);border-radius:9px;padding:12px 15px;margin:12px 0}.success{background:var(--greenbg);border-left:5px solid var(--green);padding:10px 13px;border-radius:8px}.warning{background:var(--redbg);border-left:5px solid var(--red);padding:10px 13px;border-radius:8px}
+code,pre,.mono{font-family:var(--mono)}code{background:#eef5fa;padding:2px 5px;border-radius:4px;color:#064b7b}pre{background:#1e2329;color:#e6edf3;padding:16px;border-radius:10px;overflow:auto;font-size:.92rem;line-height:1.55;margin:10px 0}.kw{color:#ff9f7a}.str{color:#a5d6a7}.fn{color:#d2a8ff}.comment{color:#8b949e}
+button{cursor:pointer;font:inherit}.btn{border:0;border-radius:8px;padding:9px 15px;background:var(--blue);color:white;font-weight:650;margin:4px 5px 4px 0;transition:transform .2s,filter .2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}.btn.gold{background:var(--gold);color:var(--navy)}.btn.outline{background:white;color:var(--blue);border:1px solid var(--blue)}
+label{font-weight:650;display:block;margin:9px 0 4px}input,textarea,select{font:inherit;border:1px solid #9fb0c2;border-radius:7px;padding:9px;width:100%;background:white}textarea{min-height:130px;font-family:var(--mono)}.output{background:#111923;color:#c9f7d4;border-radius:9px;padding:13px;min-height:50px;white-space:pre-wrap;font-family:var(--mono);margin-top:9px}
+.step{display:inline-grid;place-items:center;background:var(--gold);color:var(--navy);font-weight:900;width:30px;height:30px;border-radius:50%;margin-right:8px}.pill{display:inline-block;border-radius:20px;background:#eef5fa;color:var(--blue);padding:3px 10px;font-size:.8rem;font-weight:700}.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0}.flow div{flex:1;min-width:130px;text-align:center;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.arrow{font-weight:900;color:var(--gold);font-size:1.4rem}
+.question{border:1px solid var(--line);padding:14px;border-radius:10px;margin:12px 0;background:#fff}.option{display:block;width:100%;text-align:left;background:#f7f9fc;color:var(--ink);border:1px solid #c5d0dc;border-radius:7px;padding:9px;margin:6px 0}.option:hover{border-color:var(--blue)}.option.correct{background:var(--greenbg);border-color:var(--green)}.option.wrong{background:var(--redbg);border-color:var(--red)}.feedback{font-weight:700;margin-top:6px}.mini{font-size:.9rem;color:var(--muted)}.checklist{list-style:none;padding:0}.checklist li{padding:7px 9px;border-radius:7px;margin:5px 0;background:#f7f9fc}.checklist input{width:auto;margin-right:8px}
+footer{background:var(--navy);color:#dce8f5;text-align:center;padding:24px}.reveal{animation:pop .45s ease}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@keyframes pop{0%{transform:scale(.96);opacity:.2}100%{transform:scale(1);opacity:1}}@keyframes pulse{50%{box-shadow:0 0 0 8px #fdb51522}}
+.highlight{border:2px solid var(--gold);animation:pulse 1.8s infinite}
+@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}.hero{padding:25px 20px}header{position:relative}#progress{top:0}nav{order:3;flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">PROGRAMMING <span>LEVEL 4</span></div>
+  <nav>
+    <a href="#start">Start</a><a href="#functions">Functions</a><a href="#len">len()</a><a href="#strip">strip()</a><a href="#combine">Put it together</a><a href="#practice">Practice</a><a href="#quiz">Quiz</a>
+  </nav>
+  <span class="pill">PYTHON TUTORIAL</span>
+</header>
+<div id="progress"><div id="bar"></div></div>
+<main>
+<section class="hero" id="start">
+  <span class="tag">LESSON · PYTHON FUNDAMENTALS</span>
+  <h1>Build it once.<br>Use it whenever you need it.</h1>
+  <p>An interactive lesson on creating and calling user-defined functions, and using Python's built-in <code>len()</code> and string <code>strip()</code> methods.</p>
+  <p><b>Learning outcomes:</b> By the end, you should be able to define a function with <code>def</code>, pass information into it, return a result, count characters with <code>len()</code>, and remove unwanted spaces with <code>strip()</code>.</p>
+  <button class="btn gold" onclick="document.querySelector('#functions').scrollIntoView()">Start learning ↓</button>
+</section>
+
+<section class="section" id="functions">
+  <div class="card">
+    <span class="pill">PART 1</span>
+    <h2>What is a user-defined function?</h2>
+    <p>A <b>function</b> is a named block of code that performs a particular task. A <b>user-defined function</b> is a function that <em>you create</em> to solve a problem in your program.</p>
+    <div class="note"><b>Everyday example:</b> Think of a function like a coffee machine. You give it an input (water and coffee), it performs a task, and it produces an output (coffee).</div>
+    <div class="flow">
+      <div><b>INPUT</b><br><small>Information you provide</small></div><span class="arrow">→</span>
+      <div><b>FUNCTION</b><br><small>Instructions run</small></div><span class="arrow">→</span>
+      <div><b>OUTPUT</b><br><small>Result returned</small></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>1.1 The basic structure</h3>
+    <pre><span class="kw">def</span> <span class="fn">greet_student</span>():
+    print(<span class="str">"Welcome to Programming Level 4!"</span>)
+
+<span class="comment"># Call the function to run it</span>
+greet_student()</pre>
+    <p><b>Understand each part:</b></p>
+    <ul>
+      <li><code>def</code> tells Python that you are defining a function.</li>
+      <li><code>greet_student</code> is the function's name. Choose a meaningful name.</li>
+      <li><code>()</code> holds parameters, if the function needs any.</li>
+      <li><code>:</code> starts the function body.</li>
+      <li>The indented <code>print()</code> statement is the code that runs when the function is called.</li>
+      <li><code>greet_student()</code> calls (runs) the function.</li>
+    </ul>
+    <div class="tip"><b>Important:</b> Defining a function does not automatically run it. You must call it.</div>
+    <button class="btn" onclick="show('greetOutput','Welcome to Programming Level 4!')">Run the example</button>
+    <div class="output" id="greetOutput">Click “Run the example” to see the output.</div>
+  </div>
+  <div class="card">
+    <h3>1.2 Functions with parameters</h3>
+    <p>A <b>parameter</b> is a variable listed inside the function's brackets. It allows the function to receive information.</p>
+    <pre><span class="kw">def</span> <span class="fn">greet</span>(name):
+    print(<span class="str">"Hello"</span>, name)
+
+greet(<span class="str">"Lerato"</span>)
+greet(<span class="str">"Thabo"</span>)</pre>
+    <p>Here, <code>name</code> is the parameter. <code>"Lerato"</code> and <code>"Thabo"</code> are arguments supplied when the function is called.</p>
+    <button class="btn" onclick="show('parameterOutput','Hello Lerato\\nHello Thabo')">Run both function calls</button>
+    <div class="output" id="parameterOutput">The output will appear here.</div>
+  </div>
+  <div class="card">
+    <h3>1.3 Returning a value</h3>
+    <p>Use <code>return</code> when a function must send a result back to the part of the program that called it.</p>
+    <pre><span class="kw">def</span> <span class="fn">add_numbers</span>(number1, number2):
+    answer = number1 + number2
+    <span class="kw">return</span> answer
+
+total = add_numbers(10, 5)
+print(total)</pre>
+    <div class="success">Output: <code>15</code>. The function calculates the answer and returns it. The returned value is stored in <code>total</code>.</div>
+    <p><b>Remember:</b> <code>print()</code> displays information. <code>return</code> sends a value back so that the program can use it.</p>
+  </div>
+</section>
+
+<section class="section" id="len">
+  <div class="card">
+    <span class="pill">PART 2</span>
+    <h2>Using the len() function</h2>
+    <p><code>len()</code> is a Python <b>built-in function</b>. It returns the number of items in an object. When used with a string, it counts the characters, including spaces and punctuation.</p>
+    <pre>student_name = <span class="str">"Lerato"</span>
+name_length = len(student_name)
+print(name_length)</pre>
+    <div class="success">Output: <code>6</code> because “Lerato” contains six characters.</div>
+    <h3>Try it yourself</h3>
+    <label for="lenInput">Enter a word or sentence:</label>
+    <input id="lenInput" value="Python is fun" oninput="countLength()">
+    <div class="output" id="lenOutput">Length: 13</div>
+    <p class="mini">The live counter demonstrates what Python's <code>len()</code> returns for the text you enter.</p>
+  </div>
+  <div class="card">
+    <h3>Why is len() useful?</h3>
+    <p>Imagine that a registration system requires a student number to contain exactly 8 characters. You can use <code>len()</code> to check its length.</p>
+    <pre>student_number = <span class="str">"12345678"</span>
+
+<span class="kw">if</span> len(student_number) == 8:
+    print(<span class="str">"Valid length"</span>)
+<span class="kw">else</span>:
+    print(<span class="str">"Student number must have 8 characters"</span>)</pre>
+    <div class="note">The example checks the number of characters only. It does not check whether all characters are digits.</div>
+  </div>
+</section>
+
+<section class="section" id="strip">
+  <div class="card">
+    <span class="pill">PART 3</span>
+    <h2>Using the strip() string method</h2>
+    <p><code>strip()</code> removes whitespace from the <b>beginning and end</b> of a string. It does not remove spaces between words.</p>
+    <pre>student_name = <span class="str">"   Lerato   "</span>
+clean_name = student_name.strip()
+print(clean_name)</pre>
+    <div class="success">Output: <code>Lerato</code></div>
+    <h3>See strip() in action</h3>
+    <label for="stripInput">Type text with spaces before or after it:</label>
+    <input id="stripInput" value="   Lerato Mokoena   " oninput="previewStrip()">
+    <div class="grid">
+      <div><p><b>Before strip()</b></p><div class="output" id="beforeStrip">   Lerato Mokoena   </div></div>
+      <div><p><b>After strip()</b></p><div class="output" id="afterStrip">Lerato Mokoena</div></div>
+    </div>
+    <p class="mini">The vertical bars make leading and trailing spaces easier to see.</p>
+  </div>
+  <div class="card">
+    <h3>What strip() does not do</h3>
+    <pre>message = <span class="str">"  Python is great  "</span>
+print(message.strip())</pre>
+    <p>Result: <code>Python is great</code>. The spaces between “Python”, “is” and “great” remain.</p>
+    <div class="warning"><b>Common mistake:</b> <code>strip()</code> does not remove every space in a sentence. It removes whitespace only from the two ends of the string.</div>
+    <p>Also remember that strings are not changed in place by <code>strip()</code>. Store the returned cleaned string if you need to use it later:</p>
+    <pre>student_name = student_name.strip()</pre>
+  </div>
+</section>
+
+<section class="section" id="combine">
+  <div class="card">
+    <span class="pill">PART 4</span>
+    <h2>Combining functions, len() and strip()</h2>
+    <p>Now let's create a small student registration program. The program will:</p>
+    <ol>
+      <li>Ask for a student's name.</li>
+      <li>Use a user-defined function to clean the name with <code>strip()</code>.</li>
+      <li>Use <code>len()</code> to count the characters in the cleaned name.</li>
+      <li>Display the result.</li>
+    </ol>
+    <pre><span class="kw">def</span> <span class="fn">process_student_name</span>(name):
+    cleaned_name = name.strip()
+    name_length = len(cleaned_name)
+
+    print(<span class="str">"Student name:"</span>, cleaned_name)
+    print(<span class="str">"Number of characters:"</span>, name_length)
+
+student_name = input(<span class="str">"Enter student name: "</span>)
+process_student_name(student_name)</pre>
+    <div class="tip"><b>Walk through the program:</b> The function receives the entered name. <code>strip()</code> removes spaces at the ends. <code>len()</code> counts the characters remaining. The function then displays both results.</div>
+  </div>
+  <div class="card highlight">
+    <h3>Interactive student registration demonstration</h3>
+    <p>Enter a name below and select Run. This browser activity demonstrates the same steps as the Python program above.</p>
+    <label for="studentName">Student name:</label>
+    <input id="studentName" value="   Lerato Mokoena   ">
+    <button class="btn gold" onclick="runStudent()">▶ Run program</button>
+    <button class="btn outline" onclick="resetStudent()">Reset</button>
+    <div class="output" id="studentOutput">Program output will appear here.</div>
+  </div>
+</section>
+
+<section class="section" id="practice">
+  <div class="card">
+    <span class="pill">PART 5 · PRACTICAL TASK</span>
+    <h2>Student activity: Create a registration checker</h2>
+    <p><b>Scenario:</b> Your college needs a simple program to process student names. Write a Python program that uses a user-defined function to clean a name and calculate its length.</p>
+    <h3>Instructions</h3>
+    <ol>
+      <li>Create a function called <code>check_name(name)</code>.</li>
+      <li>Inside the function, remove spaces at the beginning and end using <code>strip()</code>.</li>
+      <li>Use <code>len()</code> to calculate the length of the cleaned name.</li>
+      <li>Display the cleaned name and its character count.</li>
+      <li>Ask the user to enter a name using <code>input()</code>.</li>
+      <li>Call the function and pass the entered name as an argument.</li>
+    </ol>
+    <div class="note"><b>Expected example:</b> If the user enters <code>   Thabo   </code>, the program should display the cleaned name <code>Thabo</code> and character count <code>5</code>.</div>
+    <h3>Write your Python solution</h3>
+    <textarea id="studentCode" spellcheck="false" placeholder="Write your Python code here...">def check_name(name):
+    cleaned_name = name.strip()
+    name_length = len(cleaned_name)
+    print("Student name:", cleaned_name)
+    print("Number of characters:", name_length)
+
+student_name = input("Enter student name: ")
+check_name(student_name)</textarea>
+    <button class="btn" onclick="showSolution()">Show suggested solution</button>
+    <button class="btn outline" onclick="copyCode()">Copy my code</button>
+    <div id="solution" class="success" style="display:none;margin-top:10px">Suggested solution shown above. Read each line and make sure you can explain what it does.</div>
+    <p class="mini" id="copyMsg" aria-live="polite"></p>
+  </div>
+  <div class="card">
+    <h3>Extension challenge</h3>
+    <p>Improve your program so that it checks whether the cleaned name is empty.</p>
+    <p><b>Hint:</b> Use an <code>if</code> statement to test whether <code>cleaned_name</code> is equal to an empty string (<code>""</code>).</p>
+    <pre><span class="kw">if</span> cleaned_name == <span class="str">""</span>:
+    print(<span class="str">"Name cannot be empty"</span>)</pre>
+    <p>What should your program do if the user enters only spaces?</p>
+  </div>
+</section>
+
+<section class="section" id="quiz">
+  <div class="card">
+    <span class="pill">PART 6 · CHECK YOUR UNDERSTANDING</span>
+    <h2>Quick knowledge check</h2>
+    <p>Choose one answer for each question. Your score will be shown at the end.</p>
+    <div id="quizArea"></div>
+    <button class="btn gold" onclick="markQuiz()">Submit answers</button>
+    <button class="btn outline" onclick="resetQuiz()">Try again</button>
+    <div id="quizResult" class="output" aria-live="polite">Your result will appear here.</div>
+  </div>
+  <div class="card">
+    <h2>Lesson recap</h2>
+    <div class="grid3">
+      <div class="tip"><b>def</b><br>Creates a user-defined function.</div>
+      <div class="tip"><b>len()</b><br>Returns the number of items; for a string, it counts characters.</div>
+      <div class="tip"><b>strip()</b><br>Removes whitespace from the beginning and end of a string.</div>
+    </div>
+    <h3>Before you finish, check that you can:</h3>
+    <ul class="checklist">
+      <li><label><input type="checkbox">Explain what a user-defined function is.</label></li>
+      <li><label><input type="checkbox">Define and call a function using <code>def</code>.</label></li>
+      <li><label><input type="checkbox">Explain the difference between a parameter and an argument.</label></li>
+      <li><label><input type="checkbox">Use <code>len()</code> to count characters in a string.</label></li>
+      <li><label><input type="checkbox">Use <code>strip()</code> to remove leading and trailing whitespace.</label></li>
+      <li><label><input type="checkbox">Combine all three concepts in a Python program.</label></li>
+    </ul>
+    <div class="success"><b>Well done!</b> You have completed the Programming Level 4 tutorial. Practise by writing the registration checker yourself without looking at the suggested solution.</div>
+  </div>
+</section>
+</main>
+<footer>Programming Level 4 · Python Fundamentals · Learn it, practise it, explain it.</footer>
+<script>
+const $=id=>document.getElementById(id);
+function show(id,text){$(id).textContent=text.replace(/\\n/g,'\n');$(id).classList.remove('reveal');void $(id).offsetWidth;$(id).classList.add('reveal')}
+function countLength(){const v=$('lenInput').value;$('lenOutput').textContent='Python len() result: '+v.length+' character(s)';}
+function previewStrip(){const v=$('stripInput').value;$('beforeStrip').textContent='|'+v+'|';$('afterStrip').textContent='|'+v.trim()+'|';}
+function runStudent(){const raw=$('studentName').value;const cleaned=raw.trim();$('studentOutput').textContent='Student name: '+cleaned+'\nNumber of characters: '+cleaned.length;}
+function resetStudent(){$('studentName').value='   Lerato Mokoena   ';runStudent();}
+function showSolution(){$('solution').style.display='block';$('solution').classList.add('reveal');$('studentCode').focus();}
+function copyCode(){const t=$('studentCode');t.select();try{document.execCommand('copy');$('copyMsg').textContent='Code copied.';}catch(e){$('copyMsg').textContent='Select and copy the code manually.';}}
+const questions=[
+ {q:'Which Python keyword is used to define a user-defined function?',o:['function','def','create'],a:1,w:'Use def to define a function in Python.'},
+ {q:'What must you do to execute a function after defining it?',o:['Delete it','Call it','Rename it'],a:1,w:'A function runs when it is called.'},
+ {q:'What does len("Python") return?',o:['5','6','7'],a:1,w:'Python has six characters.'},
+ {q:'What does "  Sam  ".strip() return?',o:['"  Sam  "',' "Sam" ','"Sam"'],a:2,w:'strip() removes whitespace from both ends.'},
+ {q:'Does strip() remove spaces between words?',o:['Yes, all spaces','No, only whitespace at the beginning and end','Only spaces after the last word'],a:1,w:'Spaces between words remain.'},
+ {q:'In def greet(name):, what is name?',o:['A parameter','A function call','A built-in function'],a:0,w:'name is a parameter that receives an argument.'}
+];
+function buildQuiz(){const host=$('quizArea');host.innerHTML='';questions.forEach((q,i)=>{const d=document.createElement('div');d.className='question';d.innerHTML='<b>'+(i+1)+'. '+q.q+'</b>';q.o.forEach((o,j)=>{const b=document.createElement('button');b.className='option';b.textContent=o;b.dataset.q=i;b.dataset.a=j;b.onclick=()=>{d.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');};d.appendChild(b)});const f=document.createElement('div');f.className='feedback';f.id='fb'+i;d.appendChild(f);host.appendChild(d)});}
+function markQuiz(){let score=0;questions.forEach((q,i)=>{const d=$('quizArea').children[i];const chosen=d.querySelector('button.selected');const fb=$('fb'+i);d.querySelectorAll('button').forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('correct');if(chosen&&j===Number(chosen.dataset.a)&&j!==q.a)b.classList.add('wrong')});if(chosen&&Number(chosen.dataset.a)===q.a){score++;fb.textContent='Correct! '+q.w;fb.style.color='var(--green)'}else{fb.textContent='Review: '+q.w;fb.style.color='var(--red)'}});$('quizResult').textContent='Your score: '+score+' / '+questions.length+'. '+(score===questions.length?'Excellent work!':score>=4?'Good effort. Review any incorrect answers.':'Keep practising and revisit the lesson sections.');}
+function resetQuiz(){$('quizResult').textContent='Your result will appear here.';buildQuiz();}
+const links=[...document.querySelectorAll('nav a')];const sections=links.map(a=>document.querySelector(a.getAttribute('href')));window.addEventListener('scroll',()=>{const max=document.documentElement.scrollHeight-innerHeight;$('bar').style.width=(max>0?scrollY/max*100:0)+'%';let current=0;sections.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<150)current=i});links.forEach((a,i)=>a.classList.toggle('active',i===current));});
+countLength();previewStrip();runStudent();buildQuiz();
+</script>
+</body>
+</html>
